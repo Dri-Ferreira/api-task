@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/libs/prisma";
+import { PrismaService } from "src/libs/prisma.service";
 import { createUsersParams } from "src/services/users/params.users";
 
 
@@ -10,7 +10,7 @@ export class UsersRepository {
     register(params: createUsersParams): Promise<any>{
         return this.prisma.user.create({
             data:{
-                nome: params.name,
+                name: params.name,
                 email: params.email,
                 password: params.password
             }
