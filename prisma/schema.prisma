@@ -30,7 +30,7 @@ model Tasks {
   id          String   @id @default(uuid())
   userId      String
   task_title  String
-  status      Status   @default(PENDENTE)
+  status      Status   @default(PENDING)
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now()) @updatedAt
@@ -40,7 +40,7 @@ model Tasks {
 }
 
 enum Status {
-  PENDENTE
-  ATIVO
-  INATIVO
+  PENDING 
+  IN_PROGRESS
+  DONE 
 }

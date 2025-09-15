@@ -1,16 +1,31 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { createUsersParams } from './params.users';
-import { UsersRepository } from 'src/modules/repositorys/users.repository';
+import { TodoRepository, } from 'src/modules/repositorys/todo.repository';
+import { User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @Inject(TodoRepository) private readonly todoRepository: TodoRepository,
+  ) {}
 
-  constructor(@Inject(UsersRepository) private readonly usersRepository: UsersRepository) { }
+  async createUser(params: createUsersParams): Promise<User> {
+    const userExists = await this.todoRepository.existeUser({
+      email: params.email,
+    });
 
-  async createUser(params: createUsersParams): Promise<void> {
+    if (userExists) {
+      throw new BadRequestException('User already exists');
+    }
 
-    const user = await this.usersRepository.register(params)
-    return user;
+    const passwordhash = await bcrypt.hash(params.password, 10);
 
+    const user = await this.todoRepository.register({
+      name: params.name,
+      email: params.email,
+      password: passwordhash,
+    });
+    return { ...user, password: undefined };
   }
 }
