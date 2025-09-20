@@ -28,4 +28,22 @@ export class UsersService {
     });
     return { ...user, password: undefined };
   }
+
+  async getUsers(): Promise<Omit<User, 'password'>[]> {
+    const users = await this.todoRepository.findAllUsers();
+    return users.map(({ password, ...user }) => user );
+  }
+
+  async getUserById(id: string): Promise<Omit<User, 'password'>> {
+    const user = await this.todoRepository.existeUser({ id });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+    const userWithTasks = await this.todoRepository.getUserById(id);
+    if (!userWithTasks) {
+      throw new BadRequestException('User not found');
+    }
+    const { password, ...userWithoutPassword } = userWithTasks;
+    return userWithoutPassword;
+  }
 }

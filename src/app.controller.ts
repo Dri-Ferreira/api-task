@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post, Query } from '@nestjs/common';
 import { UsersService } from './services/users/users.service';
 import { CreateUserDto } from './services/users/dto/create-user-dto';
 import { TaskService } from './services/task/task.service';
@@ -10,6 +10,17 @@ export class AppController {
     @Inject(UsersService) private readonly usersService: UsersService,
     @Inject(TaskService) private readonly taskService: TaskService,
   ) {}
+
+  @Get('/users')
+  getUsers() {
+    return this.usersService.getUsers();
+  }
+
+  @Get('/users/:id')
+  getUserById(@Param('id') id: string) {
+    return this.usersService.getUserById(id);
+  }
+
   @Post('/register')
   createUsers(@Body() creatUserDto: CreateUserDto) {
     return this.usersService.createUser(creatUserDto);
@@ -18,5 +29,11 @@ export class AppController {
   @Post('/task')
   createTask(@Body() creatTaskDto: CreateTaskDto) {
     return this.taskService.createTask(creatTaskDto);
+  }
+
+  // filtrar tasks por status
+  @Get('/tasks')
+  getTasks(@Query('status') status: string) {
+    return this.taskService.getTasks(status);
   }
 }
