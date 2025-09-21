@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class TodoRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  //Metodos para Users
   existeUser(where: Partial<User>): Promise<User | null> {
     return this.prisma.user.findFirst({
       where,
@@ -27,22 +28,6 @@ export class TodoRepository {
     });
   }
 
-  createTask(data: {
-    task_title: string;
-    description: string;
-    status?: string;
-    userId: string;
-  }) {
-    return this.prisma.tasks.create({
-      data: {
-        id: uuidv4(),
-        task_title: data.task_title,
-        description: data.description,
-        status: 'PENDING',
-        userId: data.userId,
-      },
-    });
-  }
 
   findAllUsers(): Promise<User[]> {
     return this.prisma.user.findMany({
@@ -65,6 +50,33 @@ export class TodoRepository {
     });
     return user;
   }
+
+  updateUser(id: string, data: Partial<User>): Promise<User> {
+    return this.prisma.user.update({
+      where: { id},
+      data,
+    });
+  }
+
+
+  //Metodos para Tasks
+  createTask(data: {
+    task_title: string;
+    description: string;
+    status?: string;
+    userId: string;
+  }) {
+    return this.prisma.tasks.create({
+      data: {
+        id: uuidv4(),
+        task_title: data.task_title,
+        description: data.description,
+        status: 'PENDING',
+        userId: data.userId,
+      },
+    });
+  }
+
   getTasks(status?: Status) {
     if (status) {
       return this.prisma.tasks.findMany({

@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Inject, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './services/users/users.service';
 import { CreateUserDto } from './services/users/dto/create-user-dto';
 import { TaskService } from './services/task/task.service';
 import { CreateTaskDto } from './services/task/dto/create-task-dto';
+import { UpdateUserDto } from './services/users/dto/update-user-dto';
 
 @Controller()
 export class AppController {
@@ -11,6 +21,7 @@ export class AppController {
     @Inject(TaskService) private readonly taskService: TaskService,
   ) {}
 
+  // controller para users
   @Get('/users')
   getUsers() {
     return this.usersService.getUsers();
@@ -26,6 +37,15 @@ export class AppController {
     return this.usersService.createUser(creatUserDto);
   }
 
+  @Put('/update')
+  updateUser(@Query('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateUser(id, updateUserDto);
+  }
+
+
+
+
+  // controller para tasks
   @Post('/task')
   createTask(@Body() creatTaskDto: CreateTaskDto) {
     return this.taskService.createTask(creatTaskDto);

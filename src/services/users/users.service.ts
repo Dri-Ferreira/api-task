@@ -3,6 +3,7 @@ import { createUsersParams } from './params.users';
 import { TodoRepository, } from 'src/modules/repositorys/todo.repository';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserDto } from './dto/update-user-dto';
 
 @Injectable()
 export class UsersService {
@@ -44,6 +45,17 @@ export class UsersService {
       throw new BadRequestException('User not found');
     }
     const { password, ...userWithoutPassword } = userWithTasks;
+    return userWithoutPassword;
+  }
+
+  async updateUser(id: string, data: Partial<UpdateUserDto>): Promise<Omit<User, 'password'>> {
+    const user = await this.todoRepository.existeUser({ id });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const updatedUser = await this.todoRepository.updateUser(id, data);
+    const { password, ...userWithoutPassword } = updatedUser;
     return userWithoutPassword;
   }
 }
