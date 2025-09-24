@@ -13,6 +13,7 @@ import { CreateUserDto } from './services/users/dto/create-user-dto';
 import { TaskService } from './services/task/task.service';
 import { CreateTaskDto } from './services/task/dto/create-task-dto';
 import { UpdateUserDto } from './services/users/dto/update-user-dto';
+import { UpdateTaskDto } from './services/task/dto/update-task-dto';
 
 @Controller()
 export class AppController {
@@ -42,9 +43,6 @@ export class AppController {
     return this.usersService.updateUser(id, updateUserDto);
   }
 
-
-
-
   // controller para tasks
   @Post('/task')
   createTask(@Body() creatTaskDto: CreateTaskDto) {
@@ -55,5 +53,11 @@ export class AppController {
   @Get('/tasks')
   getTasks(@Query('status') status: string) {
     return this.taskService.getTasks(status);
+  }
+
+  @Put('/task/update')
+  updateTask(@Query('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+
+    return this.taskService.updateTask(id, updateTaskDto);
   }
 }

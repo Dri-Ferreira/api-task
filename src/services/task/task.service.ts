@@ -18,7 +18,6 @@ export class TaskService {
     return task;
   }
 
-
   async getTasks(status?: string) {
     if (status) {
       // Normaliza o valor (evita erro com maiúsculo/minúsculo)
@@ -27,7 +26,7 @@ export class TaskService {
       // Validação: só aceita valores existentes no enum
       if (!(Object.keys(Status) as string[]).includes(normalizedStatus)) {
         throw new BadRequestException(
-          `Status inválido: ${status}. Valores permitidos: ${Object.keys(Status).join(', ')}`
+          `Status inválido: ${status}. Valores permitidos: ${Object.keys(Status).join(', ')}`,
         );
       }
 
@@ -38,5 +37,27 @@ export class TaskService {
     // Sem status → retorna tudo
     return this.taskRepository.getTasks();
   }
-}
 
+  async updateTask(id: string, params: Partial<Tasks>): Promise<Tasks> {
+    const taskExists = await this.taskRepository.existeTask({ id });
+    if (!taskExists) {
+      throw new BadRequestException('Task not found');
+    }
+
+    if (params.status) {
+      // Normaliza o valor (evita erro com maiúsculo/minúsculo)
+      const normalizedStatus = params.status.toUpperCase() as keyof typeof Status;
+
+      // Validação: só aceita valores existentes no enum
+      if (!(Object.keys(Status) as string[]).includes(normalizedStatus)) {
+        throw new BadRequestException(
+          `Status inválido: ${params.status}. Valores permitidos: ${Object.keys(Status).join(', ')}`,
+        );
+      }
+      params.status = Status[normalizedStatus];
+    }
+    // Chama o repository com o status já validado ou sem alteração de status
+    return await this.taskRepository.updateTask(id, params);
+  }
+    
+}

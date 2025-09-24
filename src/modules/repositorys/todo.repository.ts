@@ -85,4 +85,16 @@ export class TodoRepository {
     }
     return this.prisma.tasks.findMany();
   }
+  existeTask(where: Partial<{ id: string }>): Promise<any | null> {
+    return this.prisma.tasks.findFirst({
+      where,
+    });
+  }
+
+  updateTask(id: string, data: Partial<{ task_title: string; description: string; status: Status; userId: string; }>): Promise<any> {
+    return this.prisma.tasks.update({
+      where: { id },
+      data,
+    });
+  }
 }
