@@ -58,4 +58,14 @@ export class UsersService {
     const { password, ...userWithoutPassword } = updatedUser;
     return userWithoutPassword;
   }
+
+  async deleteUser(id: string): Promise<{ message: string }> {
+    const user = await this.todoRepository.existeUser({ id });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    await this.todoRepository.deleteUser(id);
+    return { message: 'User deleted successfully' };
+  }
 }

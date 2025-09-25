@@ -58,6 +58,12 @@ export class TodoRepository {
     });
   }
 
+  deleteUser(id: string): Promise<User> {
+    return this.prisma.user.delete({
+      where: { id },
+    });
+  }
+
 
   //Metodos para Tasks
   createTask(data: {

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -41,6 +42,11 @@ export class AppController {
   @Put('/update')
   updateUser(@Query('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.updateUser(id, updateUserDto);
+  }
+
+  @Delete('/delete')
+  deleteUser(@Query('id') id: string) {
+    return this.usersService.deleteUser(id);
   }
 
   // controller para tasks

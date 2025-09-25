@@ -36,7 +36,7 @@ model Tasks {
   updatedAt   DateTime @default(now()) @updatedAt
 
   // Relação com user
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Status {
