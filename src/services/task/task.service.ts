@@ -59,5 +59,13 @@ export class TaskService {
     // Chama o repository com o status já validado ou sem alteração de status
     return await this.taskRepository.updateTask(id, params);
   }
-    
+
+  async deleteTask(id: string) {
+    const taskExists = await this.taskRepository.existeTask({ id });
+    if (!taskExists) {
+      throw new BadRequestException('Task not found');
+    }
+    const del = await this.taskRepository.deleteTask(id);
+    return { message: 'Task deleted'};
+  }
 }

@@ -44,7 +44,7 @@ export class AppController {
     return this.usersService.updateUser(id, updateUserDto);
   }
 
-  @Delete('/delete')
+  @Delete('/user/delete')
   deleteUser(@Query('id') id: string) {
     return this.usersService.deleteUser(id);
   }
@@ -63,7 +63,11 @@ export class AppController {
 
   @Put('/task/update')
   updateTask(@Query('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-
     return this.taskService.updateTask(id, updateTaskDto);
+  }
+  
+  @Delete('/task/delete')
+  deleteTask(@Query('id') id: string) {
+    return this.taskService.deleteTask(id);
   }
 }

@@ -103,4 +103,10 @@ export class TodoRepository {
       data,
     });
   }
+
+  deleteTask(id: string) {
+    return this.prisma.tasks.delete({
+      where: { id },
+    });
+  }
 }
