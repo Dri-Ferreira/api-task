@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { PrismaService } from 'src/libs/prisma.service';
-import { createUsersParams } from 'src/services/users/params.users';
+import { PrismaService } from 'src/modules/libs/prisma.service';
+import { createUsersParams } from 'src/modules/services/users/params.users';
 import { Status } from '@prisma/client';
 
 import { v4 as uuidv4 } from 'uuid';

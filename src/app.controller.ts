@@ -9,12 +9,12 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { UsersService } from './services/users/users.service';
-import { CreateUserDto } from './services/users/dto/create-user-dto';
-import { TaskService } from './services/task/task.service';
-import { CreateTaskDto } from './services/task/dto/create-task-dto';
-import { UpdateUserDto } from './services/users/dto/update-user-dto';
-import { UpdateTaskDto } from './services/task/dto/update-task-dto';
+import { UsersService } from './modules/services/users/users.service';
+import { CreateUserDto } from './modules/services/users/dto/create-user-dto';
+import { TaskService } from './modules/services/task/task.service';
+import { CreateTaskDto } from './modules/services/task/dto/create-task-dto';
+import { UpdateUserDto } from './modules/services/users/dto/update-user-dto';
+import { UpdateTaskDto } from './modules/services/task/dto/update-task-dto';
 
 @Controller()
 export class AppController {

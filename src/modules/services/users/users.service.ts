@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { createUsersParams } from './params.users';
-import { TodoRepository, } from 'src/modules/repositorys/todo.repository';
+import { TodoRepository, } from 'src/modules/repository/todo.repository';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user-dto';

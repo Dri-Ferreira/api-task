@@ -1,9 +1,9 @@
-import { TaskService } from './services/task/task.service';
+import { TaskService } from './modules/services/task/task.service';
 import { Module } from '@nestjs/common';
 
 
-import { TodoRepository } from './modules/repositorys/todo.repository';
-import { PrismaService } from './libs/prisma.service';
+import { TodoRepository } from './modules/repository/todo.repository';
+import { PrismaService } from './modules/libs/prisma.service';
 
 @Module({
   providers: [TaskService, TodoRepository, PrismaService],

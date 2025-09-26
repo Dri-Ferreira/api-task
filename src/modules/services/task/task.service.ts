@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Status, Tasks } from '@prisma/client';
-import { TodoRepository } from 'src/modules/repositorys/todo.repository';
+import { TodoRepository } from 'src/modules/repository/todo.repository';
 import { createTaskParams } from './params.task';
 
 @Injectable()
