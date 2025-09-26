@@ -11,7 +11,7 @@ Ideal para aprender e praticar arquitetura limpa, serviços e repositórios usan
 - [Prisma](https://www.prisma.io/) — ORM para banco de dados
 - [TypeScript](https://www.typescriptlang.org/) — Tipagem estática para JavaScript
 - [Node.js](https://nodejs.org/) — Ambiente de execução
-- [SQLite ou PostgreSQL] — Banco de dados (dependendo de como está configurado no `schema.prisma`)
+- [PostgreSQL] — Banco de dados (dependendo de como está configurado no `schema.prisma`)
 
 ---
 
